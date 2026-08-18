@@ -29,11 +29,19 @@ def ver_tarefas():
         
     output = {
         "tasks": task_list,
-        "total_tasks": 0
+        "total_tasks": len(task_list)
     }
     return jsonify(output)
         
+
+#GET by ID
+@app.route("/tasks/<int:id>", methods=['GET'])
+def buscar_tarefa_por_id(id):
+    for t in tasks:
+        if t.id == id:
+            return jsonify(t.to_dict())
     
+    return jsonify({"message": "Não foi possível encontrar atividade"}), 404
 
 # Somente para ambiente de desenvolvimento
 if __name__ == "__main__":
